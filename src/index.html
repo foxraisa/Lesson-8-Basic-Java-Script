@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление параграфов</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Добавление параграфов</h1>
+        
+        <div class="input-group">
+            <input type="text" id="textInput" placeholder="Введите текст для нового параграфа...">
+            <button id="addButton" disabled>Добавить параграф</button>
+        </div>
+        
+        <div class="paragraphs-container" id="paragraphsContainer">
+            <p>Это первый параграф страницы</p>
+            <p>Это второй параграф с примером текста</p>
+            <p>Третий параграф демонстрирует начальное состояние</p>
+        </div>
+        
+        <div class="counter">
+            Текущее количество параграфов: <span id="counter">3</span>
+            <div class="limit-info">(максимум 5 параграфов)</div>
+        </div>
+    </div>
+
+    <script src="workingDOM.js"></script>
+</body>
+</html>
