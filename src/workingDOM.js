@@ -1,11 +1,5 @@
-
-// Урок "Работа с DOM"
-// Сверстать страницу и подключить к ней файл со скриптом. На странице должны быть три текстовых параграфа, поле ввода и кнопка. Напишите скрипт, который будет выполнять следующие условия:
-// 1.Кнопка скрыта, если в поле ввода нет значения.
-// 2.При клике на кнопку добавляется новый параграф, содержащий текст из поля ввода.
-// 3.*Если параграфов становится больше 5, первый из них удаляется.
-
-// workingDOM.js - Скрипт для работы с DOM элементами
+// workingDOM.js - основной файл с логикой приложения
+// Для новичка: этот файл содержит всю "интеллектуальную" часть приложения
 
 // Получаем элементы DOM
 const textInput = document.getElementById('textInput');
@@ -13,110 +7,152 @@ const addButton = document.getElementById('addButton');
 const paragraphsContainer = document.getElementById('paragraphsContainer');
 const counterElement = document.getElementById('counter');
 
-// Функция для обновления состояния кнопки
+// Константы для лучшей читаемости кода
+const MAX_PARAGRAPHS = 5;
+const ANIMATION_DURATION = 300;
+const SCROLL_DELAY = 100;
+const REMOVE_ANIMATION_DELAY = 1500;
+
+/**
+ * Функция для обновления состояния кнопки
+ * Кнопка скрыта (disabled), если поле ввода пустое
+ */
 function updateButtonState() {
-    // Кнопка скрыта (disabled), если поле ввода пустое
-    addButton.disabled = textInput.value.trim() === '';
+  addButton.disabled = textInput.value.trim() === '';
 }
 
-// Функция для добавления нового параграфа
+/**
+ * Функция для создания нового элемента параграфа
+ * @param {string} text - Текст для параграфа
+ * @returns {HTMLElement} Созданный элемент параграфа
+ */
+function createParagraphElement(text) {
+  const newParagraph = document.createElement('p');
+  newParagraph.textContent = text;
+  newParagraph.classList.add('new-paragraph');
+  return newParagraph;
+}
+
+/**
+ * Функция для удаления первого параграфа, если их больше максимума
+ */
+function removeFirstParagraphIfNeeded() {
+  const paragraphs = paragraphsContainer.getElementsByTagName('p');
+  
+  if (paragraphs.length > MAX_PARAGRAPHS) {
+    // Добавляем анимацию удаления
+    paragraphs[0].style.animation = 'slideInLeft 0.3s ease reverse';
+    
+    setTimeout(() => {
+      if (paragraphs[0] && paragraphs[0].parentNode) {
+        paragraphsContainer.removeChild(paragraphs[0]);
+        updateCounter();
+      }
+    }, ANIMATION_DURATION);
+  }
+}
+
+/**
+ * Функция для добавления нового параграфа
+ */
 function addNewParagraph() {
-    const text = textInput.value.trim();
-    
-    // Если текст пустой, ничего не делаем
-    if (text === '') {
-        return;
-    }
-    
-    // Создаем новый элемент параграфа
-    const newParagraph = document.createElement('p');
-    newParagraph.textContent = text;
-    newParagraph.classList.add('new-paragraph');
-    
-    // Добавляем новый параграф в контейнер
-    paragraphsContainer.appendChild(newParagraph);
-    
-    // Проверяем количество параграфов
-    const paragraphs = paragraphsContainer.getElementsByTagName('p');
-    
-    // Если параграфов больше 5, удаляем первый
-    if (paragraphs.length > 5) {
-        // Добавляем анимацию удаления
-        paragraphs[0].style.animation = 'slideInLeft 0.3s ease reverse';
-        setTimeout(() => {
-            paragraphsContainer.removeChild(paragraphs[0]);
-            updateCounter();
-        }, 300);
-    }
-    
-    // Очищаем поле ввода
-    textInput.value = '';
-    
-    // Обновляем состояние кнопки
-    updateButtonState();
-    
-    // Обновляем счетчик
-    updateCounter();
-    
-    // Прокручиваем к новому параграфу
-    setTimeout(() => {
-        newParagraph.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'nearest' 
-        });
-    }, 100);
-    
-    // Убираем класс анимации через 1.5 секунды
-    setTimeout(() => {
-        newParagraph.classList.remove('new-paragraph');
-    }, 1500);
+  const text = textInput.value.trim();
+ 
+  // Защита от пустого ввода
+  if (text === '') {
+    return;
+  }
+ 
+  // Создаем и добавляем новый параграф
+  const newParagraph = createParagraphElement(text);
+  paragraphsContainer.appendChild(newParagraph);
+ 
+  // Проверяем и удаляем лишние параграфы
+  removeFirstParagraphIfNeeded();
+ 
+  // Очищаем поле ввода и обновляем состояние
+  textInput.value = '';
+  updateButtonState();
+  updateCounter();
+ 
+  // Прокручиваем к новому параграфу
+  setTimeout(() => {
+    newParagraph.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest'
+    });
+  }, SCROLL_DELAY);
+ 
+  // Убираем класс анимации
+  setTimeout(() => {
+    newParagraph.classList.remove('new-paragraph');
+  }, REMOVE_ANIMATION_DELAY);
 }
 
-// Функция для обновления счетчика параграфов
+/**
+ * Функция для обновления счетчика параграфов
+ */
 function updateCounter() {
-    const count = paragraphsContainer.getElementsByTagName('p').length;
-    counterElement.textContent = count;
-    
-    // Меняем цвет счетчика при приближении к лимиту
-    if (count >= 4) {
-        counterElement.style.color = '#e74c3c';
-    } else {
-        counterElement.style.color = '#2c3e50';
-    }
+  const count = paragraphsContainer.getElementsByTagName('p').length;
+  counterElement.textContent = count;
+ 
+  // Меняем цвет счетчика при приближении к лимиту
+  if (count >= 4) {
+    counterElement.style.color = '#e74c3c';
+  } else {
+    counterElement.style.color = '#2c3e50';
+  }
 }
 
-// Обработчик события для поля ввода
-textInput.addEventListener('input', updateButtonState);
+/**
+ * Функция для инициализации приложения
+ * Вызывается при загрузке страницы
+ */
+function initializeApp() {
+  // Обновляем счетчик и состояние кнопки
+  updateCounter();
+  updateButtonState();
+ 
+  // Фокусируемся на поле ввода для удобства пользователя
+  textInput.focus();
+ 
+  console.log('Приложение инициализировано!');
+}
 
-// Обработчик события для кнопки
+/**
+ * Функция для очистки всех параграфов (для тестов)
+ */
+function clearAllParagraphs() {
+  paragraphsContainer.innerHTML = '';
+  updateCounter();
+}
+
+// Назначаем обработчики событий
+textInput.addEventListener('input', updateButtonState);
 addButton.addEventListener('click', addNewParagraph);
 
-// Обработчик события для клавиши Enter в поле ввода
+// Обработчик для клавиши Enter
 textInput.addEventListener('keypress', function(event) {
-    if (event.key === 'Enter' && !addButton.disabled) {
-        addNewParagraph();
-    }
+  if (event.key === 'Enter' && !addButton.disabled) {
+    addNewParagraph();
+  }
 });
 
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    // Обновляем счетчик
-    updateCounter();
-    
-    // Обновляем состояние кнопки
-    updateButtonState();
-    
-    // Фокусируемся на поле ввода для удобства пользователя
-    textInput.focus();
-    
-    console.log('workingDOM.js загружен и готов к работе!');
-});
+// Инициализируем приложение при загрузке DOM
+document.addEventListener('DOMContentLoaded', initializeApp);
 
-// Экспорт функций для возможного использования в других модулях
+// Экспортируем функции для тестирования
+// module.exports доступен только в Node.js среде (тесты)
+// export доступен в браузерных модулях
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        updateButtonState,
-        addNewParagraph,
-        updateCounter
-    };
+  module.exports = {
+    updateButtonState,
+    addNewParagraph,
+    updateCounter,
+    createParagraphElement,
+    removeFirstParagraphIfNeeded,
+    clearAllParagraphs,
+    initializeApp,
+    MAX_PARAGRAPHS
+  };
 }
