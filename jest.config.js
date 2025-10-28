@@ -1,23 +1,10 @@
 module.exports = {
-  // Jest - это фреймворк для тестирования JavaScript кода
-  // Для новичка: это автоматический тестировщик, который проверяет работает ли ваш код правильно
-    
-  testEnvironment: 'jsdom', // Тестируем в браузерном окружении
+  // Используем jsdom для тестирования DOM
+  testEnvironment: 'jsdom',
   
   // Где искать тесты
-  testMatch: [
-    '**/__tests__/**/*.js',
-    '**/?(*.)+(spec|test).js'
-  ],
+  testMatch: ['**/__tests__/**/*.js'],
   
-  // Настройки для покрытия кода тестами
-  collectCoverageFrom: [
-    'src/**/*.js',
-    '!src/index.js' // Исключаем точку входа
-  ],
-  
-  // Преобразование файлов с помощью babel
-  transform: {
-    '^.+\\.js$': 'babel-jest'
-  }
+  // Игнорируем папку node_modules
+  testPathIgnorePatterns: ['/node_modules/']
 };

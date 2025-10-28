@@ -6,10 +6,9 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #667eea, #764ba2);
     min-height: 100vh;
     padding: 20px;
 }
@@ -19,172 +18,112 @@ body {
     max-width: 800px;
     margin: 0 auto;
     background: white;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Заголовок */
 h1 {
-    color: #2c3e50;
     text-align: center;
-    margin-bottom: 40px;
-    font-size: 2.5rem;
-    font-weight: 300;
-    position: relative;
-}
-
-h1::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background: linear-gradient(90deg, #3498db, #9b59b6);
-    border-radius: 2px;
+    margin-bottom: 30px;
+    color: #333;
 }
 
 /* Группа ввода */
 .input-group {
     display: flex;
-    gap: 15px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 /* Поле ввода */
-input[type="text"] {
+#textInput {
     flex: 1;
-    min-width: 250px;
-    padding: 15px 20px;
-    border: 2px solid #e1e8ed;
-    border-radius: 8px;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
     font-size: 16px;
-    transition: all 0.3s ease;
-    background: #f8f9fa;
 }
 
-input[type="text"]:focus {
+#textInput:focus {
     outline: none;
-    border-color: #3498db;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-    transform: translateY(-2px);
-}
-
-input[type="text"]::placeholder {
-    color: #95a5a6;
+    border-color: #4CAF50;
 }
 
 /* Кнопка */
-button {
-    padding: 15px 30px;
-    background: linear-gradient(135deg, #3498db, #2980b9);
+#addButton {
+    padding: 12px 24px;
+    background: #4CAF50;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    min-width: 160px;
 }
 
-button:hover:not(:disabled) {
-    background: linear-gradient(135deg, #2980b9, #3498db);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+#addButton:hover:not(:disabled) {
+    background: #45a049;
 }
 
-button:active:not(:disabled) {
-    transform: translateY(0);
-}
-
-button:disabled {
-    background: #bdc3c7;
+#addButton:disabled {
+    background: #cccccc;
     cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+}
+
+/* Сообщение об ошибке */
+.error-message {
+    background: #ffebee;
+    color: #c62828;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border-left: 4px solid #c62828;
 }
 
 /* Контейнер для параграфов */
 .paragraphs-container {
-    margin-bottom: 30px;
-    min-height: 300px;
-    border: 2px dashed #dce1e7;
-    padding: 25px;
-    border-radius: 10px;
-    background: #fafbfc;
-    transition: border-color 0.3s ease;
-}
-
-.paragraphs-container:hover {
-    border-color: #3498db;
+    border: 2px dashed #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    background: #f9f9f9;
+    min-height: 200px;
+    margin-bottom: 20px;
 }
 
 /* Стили параграфов */
-p {
-    background: linear-gradient(135deg, #e8f4fd, #d1ebff);
-    padding: 20px;
-    margin: 15px 0;
-    border-radius: 10px;
-    border-left: 5px solid #3498db;
-    transition: all 0.4s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-p::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transition: left 0.5s ease;
-}
-
-p:hover::before {
-    left: 100%;
-}
-
-p:hover {
-    transform: translateX(10px);
-    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
-    background: linear-gradient(135deg, #d1ebff, #b8e1ff);
+.paragraphs-container p {
+    background: #e3f2fd;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border-left: 4px solid #2196F3;
 }
 
 /* Счетчик */
 .counter {
     text-align: center;
-    color: #7f8c8d;
-    font-size: 16px;
-    margin-top: 20px;
     padding: 15px;
-    background: #ecf0f1;
-    border-radius: 8px;
+    background: #f5f5f5;
+    border-radius: 5px;
 }
 
 .counter span {
     font-weight: bold;
-    color: #2c3e50;
     font-size: 1.2em;
 }
 
 .limit-info {
     font-size: 14px;
-    color: #95a5a6;
+    color: #666;
     margin-top: 5px;
 }
 
 /* Анимации */
-@keyframes fadeInUp {
+@keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -192,103 +131,28 @@ p:hover {
     }
 }
 
-@keyframes slideInLeft {
+@keyframes fadeOut {
     from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-    to {
         opacity: 1;
         transform: translateX(0);
     }
-}
-
-@keyframes highlight {
-    0% {
-        background: linear-gradient(135deg, #ffeaa7, #fab1a0);
-        transform: scale(0.95);
-    }
-    100% {
-        background: linear-gradient(135deg, #e8f4fd, #d1ebff);
-        transform: scale(1);
+    to {
+        opacity: 0;
+        transform: translateX(-20px);
     }
 }
 
-/* Применение анимаций */
-.container {
-    animation: fadeInUp 0.6s ease-out;
-}
-
-p {
-    animation: slideInLeft 0.5s ease-out;
-}
-
-.new-paragraph {
-    animation: highlight 1.5s ease !important;
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-    
+/* Адаптивность для мобильных */
+@media (max-width: 600px) {
     .container {
-        padding: 25px;
-    }
-    
-    h1 {
-        font-size: 2rem;
-        margin-bottom: 30px;
+        padding: 15px;
     }
     
     .input-group {
         flex-direction: column;
     }
     
-    input[type="text"] {
-        min-width: auto;
-    }
-    
-    button {
+    #addButton {
         width: 100%;
     }
-    
-    .paragraphs-container {
-        padding: 15px;
-        min-height: 250px;
-    }
-    
-    p {
-        padding: 15px;
-        margin: 10px 0;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 20px;
-    }
-    
-    h1 {
-        font-size: 1.7rem;
-    }
-    
-    input[type="text"] {
-        padding: 12px 15px;
-    }
-    
-    button {
-        padding: 12px 20px;
-    }
-}
-
-/* Специальные состояния */
-.paragraphs-container:empty::before {
-    content: 'Параграфы появятся здесь...';
-    color: #95a5a6;
-    font-style: italic;
-    text-align: center;
-    display: block;
-    padding: 40px;
 }
