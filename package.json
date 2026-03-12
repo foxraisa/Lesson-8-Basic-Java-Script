@@ -8,11 +8,13 @@
     "dev": "webpack --mode development",
     "start": "webpack serve --mode development --open",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "prepare": "husky" 
   },
   "devDependencies": {
     "css-loader": "^6.8.1",
     "html-webpack-plugin": "^5.5.3",
+    "husky": "^9.1.7",
     "jest": "^29.0.0",
     "jest-environment-jsdom": "^29.0.0",
     "style-loader": "^3.3.3",
